@@ -1,6 +1,6 @@
 var datas = {
 	name: 'ivan',
-	password: '520angel'
+	password: 'ivan'
 }
 fetch("http://localhost:3000/api/user/register",{
 	method: 'POST', 
