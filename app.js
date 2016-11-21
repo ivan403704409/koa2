@@ -13,6 +13,7 @@ const body = require('koa-better-body')
 const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser')();
 const logger = require('koa-logger');
+import Cookies from 'cookies'
 
 const index = require('./routes/index');
 const users = require('./routes/users');
@@ -24,6 +25,7 @@ import './api/user.js'
 // middlewares
 app.use(convert(bodyparser));
 app.use(convert(json()));
+
 // app.use(body({}));
 app.use(convert(logger()));
 app.use(require('koa-static')(__dirname + '/public'));
@@ -31,6 +33,14 @@ app.use(require('koa-static')(__dirname + '/public'));
 app.use(views(__dirname + '/views', {
   extension: 'jade'
 }));
+
+// 设置cookie
+app.use(async (ctx, next) => {
+	let {request, response} = ctx
+	console.log(ctx.cookies.get('test'))
+	// ctx.cookies = new Cookies(request, response)
+	await next()
+})
 
 // logger
 app.use(async (ctx, next) => {
